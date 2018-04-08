@@ -1,16 +1,21 @@
 import random
 import string
 
-WORDLIST_FILENAME = "palavras.txt"
+WORDLIST_PT = "palavras.txt"
+WORDLIST_EN = "words.txt"
 
-def loadWords():
+def loadWords(mode):
     """
     Depending on the size of the word list, this function may
     take a while to finish.
     """
     print "Loading word list from file..."
-    # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r', 0)
+    if mode == 'pt':
+        # inFile: file
+        inFile = open(WORDLIST_PT, 'r', 0)
+    elif mode == 'en':
+        # inFile: file
+        inFile = open(WORDLIST_EN, 'r', 0)
     # line: string
     line = inFile.readline()
     # wordlist: list of strings
@@ -52,8 +57,9 @@ def getAvailableLetters():
     return available
 
 def printMenu():
-    print 'To start playing press 1'
-    print 'To quit press 2'
+    print 'To play in Portuguese press 1'
+    print 'To play in English press 2'
+    print 'To quit press 3'
     option = raw_input('Choose: ')
 
     return option
@@ -116,7 +122,7 @@ def guessing(secretWord, lettersGuessed, guesses):
         else:
             print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
 
-def hangman(secretWord):
+def hangman():
 
     guesses = 8
     lettersGuessed = []
@@ -127,11 +133,15 @@ def hangman(secretWord):
         option = printMenu()
 
         if option == '1':
+            secretWord = loadWords('pt').lower()
             printPlayingMenu(len(secretWord))
             guessing(secretWord, lettersGuessed, guesses)
         elif option == '2':
+            secretWord = loadWords('en').lower()
+            printPlayingMenu(len(secretWord))
+            guessing(secretWord, lettersGuessed, guesses)
+        elif option == '3':
             print 'See ya...'
             finish = True
 
-secretWord = loadWords().lower()
-hangman(secretWord)
+hangman()
