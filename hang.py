@@ -67,6 +67,12 @@ def printPlayingMenu(lenght):
     print 'I am thinking of a word that is', lenght, 'letters long.'
     print '\n-------------\n'
 
+def getLetter(available):
+    print 'Available letters', available
+    letter = raw_input('Please guess a letter: ')
+
+    return letter
+
 def guessing(secretWord, lettersGuessed, guesses):
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses > 0:
         print 'You have ', guesses, 'guesses left.'
@@ -76,8 +82,8 @@ def guessing(secretWord, lettersGuessed, guesses):
             if letter in lettersGuessed:
                 available = available.replace(letter, '')
 
-        print 'Available letters', available
-        letter = raw_input('Please guess a letter: ')
+        letter = getLetter(available)
+
         if letter in lettersGuessed:
             guessed = getGuessedWord()
             for letter in secretWord:
