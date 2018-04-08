@@ -51,17 +51,20 @@ def getAvailableLetters():
 
     return available
 
-def printMenu(lenght):
-    print 'Welcome to the game, Hangam!'
+def printMenu():
+    print 'To start playing press 1'
+    print 'To quit press 2'
+    option = raw_input('Choose: ')
+
+    return option
+
+def printPlayingMenu(lenght):
+    print '\n'
+    print 'Lets play!'
     print 'I am thinking of a word that is', lenght, 'letters long.'
-    print '-------------'
+    print '\n-------------\n'
 
-def hangman(secretWord):
-
-    guesses = 8
-    lettersGuessed = []
-    printMenu(len(secretWord))
-
+def guessing(secretWord, lettersGuessed, guesses):
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses >0:
         print 'You have ', guesses, 'guesses left.'
 
@@ -113,6 +116,22 @@ def hangman(secretWord):
         else:
             print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
 
+def hangman(secretWord):
+
+    guesses = 8
+    lettersGuessed = []
+    finish = False
+    print 'Welcome to the game, Hangam!'
+
+    while(finish == False):
+        option = printMenu()
+
+        if option == '1':
+            printPlayingMenu(len(secretWord))
+            guessing(secretWord, lettersGuessed, guesses)
+        elif option == '2':
+            print 'See ya...'
+            finish = True
 
 secretWord = loadWords().lower()
 hangman(secretWord)
