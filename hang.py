@@ -9,7 +9,7 @@ def loadWords(mode):
     Depending on the size of the word list, this function may
     take a while to finish.
     """
-    print "Loading word list from file..."
+    #print "Loading word list from file..."
     if mode == 'pt':
         # inFile: file
         inFile = open(WORDLIST_PT, 'r', 0)
@@ -20,7 +20,7 @@ def loadWords(mode):
     line = inFile.readline()
     # wordlist: list of strings
     wordlist = string.split(line)
-    print "  ", len(wordlist), "words loaded."
+    #print "  ", len(wordlist), "words loaded."
     return random.choice(wordlist)
 
 
@@ -65,8 +65,8 @@ def printMenu():
     return option
 
 def printPlayingMenu(lenght):
-    print '\n'
-    print 'Lets play!'
+    print '\n-------------'
+    print '\nLets play!'
     print 'I am thinking of a word that is', lenght, 'letters long.'
     print '\n-------------\n'
 
@@ -88,7 +88,7 @@ def guessing(secretWord, lettersGuessed, guesses):
                 if letter in lettersGuessed:
                     guessed += letter
                 else:
-                    guessed += '_ '
+                    guessed += '_'
 
             print 'Oops! You have already guessed that letter: ', guessed
         elif letter in secretWord:
@@ -99,7 +99,7 @@ def guessing(secretWord, lettersGuessed, guesses):
                 if letter in lettersGuessed:
                     guessed += letter
                 else:
-                    guessed += '_ '
+                    guessed += '_'
 
             print 'Good Guess: ', guessed
         else:
@@ -111,23 +111,23 @@ def guessing(secretWord, lettersGuessed, guesses):
                 if letter in lettersGuessed:
                     guessed += letter
                 else:
-                    guessed += '_ '
+                    guessed += '_'
 
             print 'Oops! That letter is not in my word: ',  guessed
-        print '------------'
+        print '\n------------\n'
 
     else:
         if isWordGuessed(secretWord, lettersGuessed) == True:
-            print 'Congratulations, you won!'
+            print 'Congratulations, you won!\n'
         else:
-            print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
+            print 'Sorry, you ran out of guesses. The word was ', secretWord, '.\n'
 
 def hangman():
 
     guesses = 8
     lettersGuessed = []
     finish = False
-    print 'Welcome to the game, Hangam!'
+    print '** Welcome to the game, Hangam! **\n'
 
     while(finish == False):
         option = printMenu()
@@ -141,7 +141,10 @@ def hangman():
             printPlayingMenu(len(secretWord))
             guessing(secretWord, lettersGuessed, guesses)
         elif option == '3':
-            print 'See ya...'
+            print '\nSee ya...'
             finish = True
+        else:
+            print ''
+            pass
 
 hangman()
