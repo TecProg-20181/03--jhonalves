@@ -1,8 +1,10 @@
 import random
 import string
 
+#variables with words list
 WORDLIST_PT = "palavras.txt"
 WORDLIST_EN = "words.txt"
+
 
 def loadWords(mode):
     """
@@ -27,12 +29,6 @@ def loadWords(mode):
 def isWordGuessed(secretWord, lettersGuessed):
     secretLetters = []
 
-#    for letter in secretWord:
-#        if letter in secretLetters:
-#            secretLetters.append(letter)
-#        else:
-#            pass
-
     for letter in secretWord:
         if letter in lettersGuessed:
             pass
@@ -56,6 +52,7 @@ def getAvailableLetters():
 
     return available
 
+#print options menu and get option choosen
 def printMenu():
     print 'To play in Portuguese press 1'
     print 'To play in English press 2'
@@ -71,7 +68,7 @@ def printPlayingMenu(lenght):
     print '\n-------------\n'
 
 def guessing(secretWord, lettersGuessed, guesses):
-    while  isWordGuessed(secretWord, lettersGuessed) == False and guesses >0:
+    while  isWordGuessed(secretWord, lettersGuessed) == False and guesses > 0:
         print 'You have ', guesses, 'guesses left.'
 
         available = getAvailableLetters()
@@ -82,7 +79,6 @@ def guessing(secretWord, lettersGuessed, guesses):
         print 'Available letters', available
         letter = raw_input('Please guess a letter: ')
         if letter in lettersGuessed:
-
             guessed = getGuessedWord()
             for letter in secretWord:
                 if letter in lettersGuessed:
@@ -132,19 +128,24 @@ def hangman():
     while(finish == False):
         option = printMenu()
 
+        #play in portuguese
         if option == '1':
             secretWord = loadWords('pt').lower()
             printPlayingMenu(len(secretWord))
             guessing(secretWord, lettersGuessed, guesses)
+        #play in english
         elif option == '2':
             secretWord = loadWords('en').lower()
             printPlayingMenu(len(secretWord))
             guessing(secretWord, lettersGuessed, guesses)
+        #quit game
         elif option == '3':
             print '\nSee ya...'
             finish = True
+        #prints blank line before next menu
         else:
             print ''
             pass
 
+#calls main function
 hangman()
