@@ -119,10 +119,16 @@ def guessing(secretWord, lettersGuessed, guesses):
         else:
             print 'Sorry, you ran out of guesses. The word was ', secretWord, '.\n'
 
-def hangman():
-
+def play(mode):
     guesses = 8
     lettersGuessed = []
+    secretWord = loadWords(mode).lower()
+
+    printPlayingMenu(len(secretWord))
+    guessing(secretWord, lettersGuessed, guesses)
+
+def hangman():
+
     finish = False
     print '** Welcome to the game, Hangam! **\n'
 
@@ -131,14 +137,10 @@ def hangman():
 
         #play in portuguese
         if option == '1':
-            secretWord = loadWords('pt').lower()
-            printPlayingMenu(len(secretWord))
-            guessing(secretWord, lettersGuessed, guesses)
+            play('pt')
         #play in english
         elif option == '2':
-            secretWord = loadWords('en').lower()
-            printPlayingMenu(len(secretWord))
-            guessing(secretWord, lettersGuessed, guesses)
+            play('en')
         #quit game
         elif option == '3':
             print '\nSee ya...'
