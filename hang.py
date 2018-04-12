@@ -99,6 +99,16 @@ def checkDifferentLetters(secretWord):
     quantitieDifferentLetters = len(differentLetters)
     return quantitieDifferentLetters
 
+def changeWord(guesses, differentLetters):
+    if differentLetters > guesses:
+        print '\nYour secret word has more different letters than your number of guesses'
+        print 'Press 1 to play on'
+        playOn = raw_input('Press 2 to get a new word: ')
+    else:
+        playOn = '1'
+
+    return playOn
+
 def guessing(secretWord, lettersGuessed, guesses):
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses > 0:
         print 'You have ', guesses, 'guesses left.'
@@ -132,14 +142,24 @@ def guessing(secretWord, lettersGuessed, guesses):
     checkWin(secretWord, lettersGuessed)
 
 def play(mode):
-    guesses = 8
-    lettersGuessed = []
-    secretWord = loadWords(mode).lower()
-    secretWordLenght = len(secretWord)
-    differentLetters = checkDifferentLetters(secretWord)
+    playOn = '2'
 
-    printPlayingMenu(secretWordLenght, differentLetters)
-    guessing(secretWord, lettersGuessed, guesses)
+    while playOn == '2':
+        guesses = 8
+        lettersGuessed = []
+        secretWord = loadWords(mode).lower()
+        secretWordLenght = len(secretWord)
+        differentLetters = checkDifferentLetters(secretWord)
+
+        playOn = changeWord(guesses, differentLetters)
+
+        if playOn == '1':
+            printPlayingMenu(secretWordLenght, differentLetters)
+            guessing(secretWord, lettersGuessed, guesses)
+        elif playOn == '2':
+            print '\nHold on, lets get you a new word...'
+        else:
+            print 'aaaaaaaaaaa'
 
 def hangman():
 
