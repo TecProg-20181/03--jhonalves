@@ -61,10 +61,11 @@ def printMenu():
 
     return option
 
-def printPlayingMenu(lenght):
+def printPlayingMenu(lenght, differentLetters):
     print '\n-------------'
     print '\nLets play!'
     print 'I am thinking of a word that is', lenght, 'letters long.'
+    print 'This word has ', differentLetters, ' different letters.'
     print '\n-------------\n'
 
 def getLetter(available):
@@ -88,6 +89,15 @@ def checkWin(secretWord, lettersGuessed):
         print 'Congratulations, you won!\n'
     else:
         print 'Sorry, you ran out of guesses. The word was ', secretWord, '.\n'
+
+def checkDifferentLetters(secretWord):
+    differentLetters = []
+    for letter in secretWord:
+        if letter not in differentLetters:
+            differentLetters.append(letter)
+
+    quantitieDifferentLetters = len(differentLetters)
+    return quantitieDifferentLetters
 
 def guessing(secretWord, lettersGuessed, guesses):
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses > 0:
@@ -125,8 +135,10 @@ def play(mode):
     guesses = 8
     lettersGuessed = []
     secretWord = loadWords(mode).lower()
+    secretWordLenght = len(secretWord)
+    differentLetters = checkDifferentLetters(secretWord)
 
-    printPlayingMenu(len(secretWord))
+    printPlayingMenu(secretWordLenght, differentLetters)
     guessing(secretWord, lettersGuessed, guesses)
 
 def hangman():
