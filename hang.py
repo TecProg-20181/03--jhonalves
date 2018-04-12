@@ -83,6 +83,12 @@ def updateGuessed(letter, secretWord, lettersGuessed):
 
     return guessed
 
+def checkWin(secretWord, lettersGuessed):
+    if isWordGuessed(secretWord, lettersGuessed) == True:
+        print 'Congratulations, you won!\n'
+    else:
+        print 'Sorry, you ran out of guesses. The word was ', secretWord, '.\n'
+
 def guessing(secretWord, lettersGuessed, guesses):
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses > 0:
         print 'You have ', guesses, 'guesses left.'
@@ -113,11 +119,7 @@ def guessing(secretWord, lettersGuessed, guesses):
             print 'Oops! That letter is not in my word: ',  guessed
         print '\n------------\n'
 
-    else:
-        if isWordGuessed(secretWord, lettersGuessed) == True:
-            print 'Congratulations, you won!\n'
-        else:
-            print 'Sorry, you ran out of guesses. The word was ', secretWord, '.\n'
+    checkWin(secretWord, lettersGuessed)
 
 def play(mode):
     guesses = 8
