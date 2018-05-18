@@ -128,8 +128,28 @@ def checkDifferentLetters(secretWord):
 def changeWord(guesses, differentLetters):
     if differentLetters > guesses:
         print '\nYour secret word has more different letters than your number of guesses'
-        print 'Press 1 to play on'
-        playOn = input('Press 2 to get a new word: ')
+
+        playOnList = [1, 2]
+        playOnFailure = True
+        playOnIsNumber = True
+
+        while playOnFailure:
+            print 'Press 1 to play on'
+            print 'Press 2 to get a new word: '
+            try:
+                playOn = input()
+            except NameError:
+                print '\nHey, enter a number to choose an option\n'
+                playOn = 0
+                playOnIsNumber = False
+            if playOn in playOnList:
+                playOnFailure = False
+            else:
+                if playOnIsNumber:
+                    print '\nHey, the options avaible are 1 and 2!\n'
+                else:
+                    playOnIsNumber = True
+                playOnFailure = True
     else:
         playOn = 1
 
@@ -168,9 +188,9 @@ def guessing(secretWord, lettersGuessed, guesses):
     checkWin(secretWord, lettersGuessed)
 
 def play(mode):
-    playOn = '2'
+    playOn = 2
 
-    while playOn == '2':
+    while playOn == 2:
         guesses = 8
         lettersGuessed = []
         secretWord = loadWords(mode).lower()
