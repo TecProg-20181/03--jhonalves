@@ -61,11 +61,29 @@ def getAvailableLetters():
 
 #print options menu and get choosen option
 def printMenu():
-    print 'To play in Portuguese press 1'
-    print 'To play in English press 2'
-    print 'To quit press 3'
-    print 'Choose: '
-    option = input()
+    optionsList = [1, 2, 3]
+    optionFailure = True
+    optionIsNumber = True
+
+    while optionFailure:
+        print 'To play in Portuguese press 1'
+        print 'To play in English press 2'
+        print 'To quit press 3'
+        print 'Choose: '
+        try:
+            option = input()
+        except NameError:
+            print '\nHey, enter a number to choose an option\n'
+            option = 0
+            optionIsNumber = False
+        if option in optionsList:
+            optionFailure = False
+        else:
+            if optionIsNumber:
+                print '\nHey, the options avaible are 1, 2 and 3!\n'
+            else:
+                optionIsNumber = True
+            optionFailure = True
 
     return option
 
