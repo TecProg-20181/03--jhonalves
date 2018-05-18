@@ -14,10 +14,20 @@ def loadWords(mode):
     #print "Loading word list from file..."
     if mode == 'pt':
         # inFile: file
-        inFile = open(WORDLIST_PT, 'r', 0)
+        try:
+            inFile = open(WORDLIST_PT, 'r', 0)
+        except IOError:
+            print '\nTheres a problem oppening the ', WORDLIST_PT, ' file.'
+            print '\nExiting...'
+            exit()
     elif mode == 'en':
         # inFile: file
-        inFile = open(WORDLIST_EN, 'r', 0)
+        try:
+            inFile = open(WORDLIST_EN, 'r', 0)
+        except IOError:
+            print '\nTheres a problem oppening the ', WORDLIST_EN, ' file.'
+            print '\nExiting...'
+            exit()
     # line: string
     line = inFile.readline()
     # wordlist: list of strings
