@@ -28,6 +28,7 @@ def loadWords(mode):
             print '\nTheres a problem oppening the ', WORDLIST_EN, ' file.'
             print '\nExiting...'
             exit()
+
     # line: string
     line = inFile.readline()
     # wordlist: list of strings
@@ -48,26 +49,23 @@ def isWordGuessed(secretWord, lettersGuessed):
     return True
 
 def getGuessedWord():
+    guessed = ''
 
-     guessed = ''
-
-
-     return guessed
+    return guessed
 
 def getAvailableLetters():
-    import string
     # 'abcdefghijklmnopqrstuvwxyz'
     available = string.ascii_lowercase
 
-
     return available
 
-#print options menu and get option choosen
+#print options menu and get choosen option
 def printMenu():
     print 'To play in Portuguese press 1'
     print 'To play in English press 2'
     print 'To quit press 3'
-    option = raw_input('Choose: ')
+    print 'Choose: '
+    option = input()
 
     return option
 
@@ -113,9 +111,9 @@ def changeWord(guesses, differentLetters):
     if differentLetters > guesses:
         print '\nYour secret word has more different letters than your number of guesses'
         print 'Press 1 to play on'
-        playOn = raw_input('Press 2 to get a new word: ')
+        playOn = input('Press 2 to get a new word: ')
     else:
-        playOn = '1'
+        playOn = 1
 
     return playOn
 
@@ -163,10 +161,10 @@ def play(mode):
 
         playOn = changeWord(guesses, differentLetters)
 
-        if playOn == '1':
+        if playOn == 1:
             printPlayingMenu(secretWordLenght, differentLetters)
             guessing(secretWord, lettersGuessed, guesses)
-        elif playOn == '2':
+        elif playOn == 2:
             print '\nHold on, lets get you a new word...'
         else:
             print 'aaaaaaaaaaa'
@@ -180,13 +178,13 @@ def hangman():
         option = printMenu()
 
         #play in portuguese
-        if option == '1':
+        if option == 1:
             play('pt')
         #play in english
-        elif option == '2':
+        elif option == 2:
             play('en')
         #quit game
-        elif option == '3':
+        elif option == 3:
             print '\nSee ya...'
             finish = True
         #prints blank line before next menu
