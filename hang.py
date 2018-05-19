@@ -27,6 +27,8 @@ def loadWords(mode):
         except IOError:
             print '\nTheres a problem oppening the ', WORDLIST_PT, ' file.'
             print '\nExiting...'
+            logFile = 'In loadWords - Problem oppening the ' + WORDLIST_PT + ' file\n'
+            log_file.write(logFile)
             exit()
     elif mode == 'en':
         # inFile: file
@@ -35,8 +37,13 @@ def loadWords(mode):
         except IOError:
             print '\nTheres a problem oppening the ', WORDLIST_EN, ' file.'
             print '\nExiting...'
+            logFile = 'In loadWords - Problem oppening the ' + WORDLIST_EN + ' file\n'
+            log_file.write(logFile)
             exit()
     stop = timeit.default_timer()
+    timeToLoad = stop - start
+    logTimeToLoad = 'In loadWords - Time to load file: ' + str(timeToLoad) + '\n'
+    log_file.write(logTimeToLoad)
 
     # line: string
     line = inFile.readline()
@@ -79,11 +86,14 @@ def printMenu():
             print '\nHey, enter a number to choose an option\n'
             option = 0
             optionIsNumber = False
+            log_file.write('In printMenu - Exception raised in option input: NameError\n')
         if option in optionsList:
             optionFailure = False
+            log_file.write('In printMenu - Input successful\n')
         else:
             if optionIsNumber:
                 print '\nHey, the options available are 1, 2 and 3!\n'
+                log_file.write('In printMenu - Input not successful: number entered\n')
             else:
                 optionIsNumber = True
             optionFailure = True
@@ -116,8 +126,10 @@ def updateGuessed(letter, secretWord, lettersGuessed):
 def checkWin(secretWord, lettersGuessed):
     if isWordGuessed(secretWord, lettersGuessed) == True:
         print 'Congratulations, you won!\n'
+        log_file.write('In checkWin - Player has won\n')
     else:
         print 'Sorry, you ran out of guesses. The word was ', secretWord, '.\n'
+        log_file.write('In checkWin - Player has lost\n')
 
 def checkDifferentLetters(secretWord):
     differentLetters = []
@@ -126,6 +138,10 @@ def checkDifferentLetters(secretWord):
             differentLetters.append(letter)
 
     quantitieDifferentLetters = len(differentLetters)
+
+    logDifferentLetters = 'In checkDifferentLetters - Number of different letters: ' + str(quantitieDifferentLetters) + '\n'
+    log_file.write(logDifferentLetters)
+
     return quantitieDifferentLetters
 
 def changeWord(guesses, differentLetters):
@@ -238,12 +254,12 @@ def hangman():
 
         #play in portuguese
         if option == 1:
-            play('pt')
             log_file.write('In hangman - Choosen option: Portuguese\n')
+            play('pt')
         #play in english
         elif option == 2:
-            play('en')
             log_file.write('In hangman - Choosen option: English\n')
+            play('en')
         #quit game
         elif option == 3:
             print '\nSee ya...'
