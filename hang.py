@@ -1,12 +1,17 @@
 import random
 import string
+import timeit
+from datetime import datetime
 
 #variables with words list
 WORDLIST_PT = "palavras.txt"
 WORDLIST_EN = "words.txt"
+LOG_FILE = "log.txt"
 # 'abcdefghijklmnopqrstuvwxyz'
 ALL_LETTERS = string.ascii_lowercase
 GUESSES = 8
+
+log_file = open(LOG_FILE, 'a')
 
 def loadWords(mode):
     """
@@ -14,6 +19,7 @@ def loadWords(mode):
     take a while to finish.
     """
     #print "Loading word list from file..."
+    start = timeit.default_timer()
     if mode == 'pt':
         # inFile: file
         try:
@@ -30,6 +36,7 @@ def loadWords(mode):
             print '\nTheres a problem oppening the ', WORDLIST_EN, ' file.'
             print '\nExiting...'
             exit()
+    stop = timeit.default_timer()
 
     # line: string
     line = inFile.readline()
@@ -183,6 +190,8 @@ def guessing(secretWord, lettersGuessed, guesses):
 
     checkWin(secretWord, lettersGuessed)
 
+    return guesses
+
 def play(mode):
     playOn = 2
 
@@ -197,13 +206,29 @@ def play(mode):
 
         if playOn == 1:
             printPlayingMenu(secretWordLenght, differentLetters)
-            guessing(secretWord, lettersGuessed, guesses)
+            guessesLeft = guessing(secretWord, lettersGuessed, guesses)
         elif playOn == 2:
             print '\nHold on, lets get you a new word...'
         else:
             pass
 
+    logGuesses = 'In play - Guesses: ' + str(guesses) + '\n'
+    logguessesLeft = 'In play - Guesses left: ' + str(guessesLeft) + '\n'
+    logLettersGuessed = 'In play - Letters guessed: ' + str(lettersGuessed) + '\n'
+    logSecretWord = 'In play - Secret word: ' + str(secretWord) + '\n'
+    logSecretWordLenght = 'In play - Secret word lenght: ' + str(secretWordLenght) + '\n'
+    log_file.write(logGuesses)
+    log_file.write(logguessesLeft)
+    log_file.write(logLettersGuessed)
+    log_file.write(logSecretWord)
+    log_file.write(logSecretWordLenght)
+
 def hangman():
+    start = datetime.now()
+    start_log = 'Execution starting at ' + str(start) + '\n'
+    #print start_log
+    log_file.write('-----------------------\n')
+    log_file.write(start_log)
 
     finish = False
     print '** Welcome to the game, Hangam! **\n'
@@ -214,17 +239,20 @@ def hangman():
         #play in portuguese
         if option == 1:
             play('pt')
+            log_file.write('In hangman - Choosen option: Portuguese\n')
         #play in english
         elif option == 2:
             play('en')
+            log_file.write('In hangman - Choosen option: English\n')
         #quit game
         elif option == 3:
             print '\nSee ya...'
+            log_file.write('In hangman - Choosen option: Exit\n')
             finish = True
         #prints blank line before next menu
         else:
             print ''
-            pass
+            log_file.write('In hangman - Unknown error in hangman method\n')
 
 #calls main function
 hangman()
