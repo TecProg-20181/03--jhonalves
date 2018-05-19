@@ -4,7 +4,9 @@ import string
 #variables with words list
 WORDLIST_PT = "palavras.txt"
 WORDLIST_EN = "words.txt"
-
+# 'abcdefghijklmnopqrstuvwxyz'
+ALL_LETTERS = string.ascii_lowercase
+GUESSES = 8
 
 def loadWords(mode):
     """
@@ -53,12 +55,6 @@ def getGuessedWord():
 
     return guessed
 
-def getAvailableLetters():
-    # 'abcdefghijklmnopqrstuvwxyz'
-    available = string.ascii_lowercase
-
-    return available
-
 #print options menu and get choosen option
 def printMenu():
     optionsList = [1, 2, 3]
@@ -80,7 +76,7 @@ def printMenu():
             optionFailure = False
         else:
             if optionIsNumber:
-                print '\nHey, the options avaible are 1, 2 and 3!\n'
+                print '\nHey, the options available are 1, 2 and 3!\n'
             else:
                 optionIsNumber = True
             optionFailure = True
@@ -146,7 +142,7 @@ def changeWord(guesses, differentLetters):
                 playOnFailure = False
             else:
                 if playOnIsNumber:
-                    print '\nHey, the options avaible are 1 and 2!\n'
+                    print '\nHey, the options available are 1 and 2!\n'
                 else:
                     playOnIsNumber = True
                 playOnFailure = True
@@ -159,7 +155,7 @@ def guessing(secretWord, lettersGuessed, guesses):
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses > 0:
         print 'You have ', guesses, 'guesses left.'
 
-        available = getAvailableLetters()
+        available = ALL_LETTERS
         for letter in available:
             if letter in lettersGuessed:
                 available = available.replace(letter, '')
@@ -191,7 +187,7 @@ def play(mode):
     playOn = 2
 
     while playOn == 2:
-        guesses = 8
+        guesses = GUESSES
         lettersGuessed = []
         secretWord = loadWords(mode).lower()
         secretWordLenght = len(secretWord)
@@ -205,7 +201,7 @@ def play(mode):
         elif playOn == 2:
             print '\nHold on, lets get you a new word...'
         else:
-            print 'aaaaaaaaaaa'
+            pass
 
 def hangman():
 
