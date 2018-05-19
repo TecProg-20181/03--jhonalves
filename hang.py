@@ -42,6 +42,7 @@ def loadWords(mode):
             exit()
     stop = timeit.default_timer()
     timeToLoad = stop - start
+    timeToLoad = float('%.10f' % (timeToLoad))
     logTimeToLoad = 'In loadWords - Time to load file: ' + str(timeToLoad) + '\n'
     log_file.write(logTimeToLoad)
 
